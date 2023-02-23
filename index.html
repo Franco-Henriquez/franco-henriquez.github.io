@@ -82,6 +82,7 @@
             
             console.log("Directory name: " + directoryName)
             var countOfDir = (path.match(/\//g) || []).length;
+            console.log("Count of forwardslashes : " + countOfDir)
             if (countOfDir >= 2 ) {
               //then it's a subdirectory
               console.log("It's a subdirectory!")
@@ -96,7 +97,7 @@
               var myRepos = myRepos + rebuiltPath;
               // console.log("Repo: " + myRepos)
               return myRepos;
-            } else if (countOfDir == null) {
+            } else if (countOfDir == null || countOfDir == 0) {
               //then it's a repo
               console.log("It's a Repo!")
               var myRepos = myRepos;
