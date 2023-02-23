@@ -71,32 +71,54 @@
       <div class="loading-anim"></div>
       <script>
         (async () => {
-          function checkIfRepo(path){
-            if (path.includes(".") == true ) {
+          function checkIfRepo(myGitHubApiURL,path){
+            //we're counting how many forwardslasher there are, but for it to be read it needs to be escaped with a backslash
+            //the g just means global so it searches the whole string/value of path
+            //fetch correct listing
+            var location = window.location.pathname;
+            console.log("Directory location: " + location)
+            // var myGitHubApiURL = 'https://api.github.com/repos/Franco-Henriquez/Web_Fundamentals/contents/'
+            var directoryName = path.substring(path.lastIndexOf("/")+1); /*current working directory*/
+            
+            console.log("Directory name: " + directoryName)
+            var countOfDir = (path.match(/\//g) || []).length;
+            console.log("Count of forwardslashes : " + countOfDir)
+            if (countOfDir >= 2 ) {
               //then it's a subdirectory
               console.log("It's a subdirectory!")
-              var myRepos = myRepos;
-              return myRepos;
-            } else if (path.includes(".") == false) {
+              // var directoryPaths = location.substring(1, location.lastIndexOf("/")+1);
+              // console.log("Directory Paths: " + directoryPaths)
+              const pathFolder = [];
+              pathFolder.push(location.split( '/' )[2]);
+              pathFolder.push(location.split( '/' )[3]);
+              console.log("Path Array: " + pathFolder);
+              var rebuiltPath = pathFolder[0] + "/" + pathFolder[1] + "/";
+              console.log("Subdirectories only: " + pathFolder[0] + "/" + pathFolder[1] + "/");
+              var myGitHubApiURL = myGitHubApiURL + rebuiltPath;
+              // console.log("Repo: " + myGitHubApiURL)
+              return myGitHubApiURL;
+            } else if (countOfDir == null || countOfDir == 0) {
               //then it's a repo
               console.log("It's a Repo!")
-              var myRepos = myRepos + domainLessPath;
-              return myRepos;
+              var myGitHubApiURL = myGitHubApiURL;
+              // console.log("Repo: " + myGitHubApiURL)
+              return myGitHubApiURL;
             }
+              // console.log("Repo: " + myGitHubApiURL)
 
           }
-          var myRepos = 'https://api.github.com/repos/Franco-Henriquez/franco-henriquez.github.io/contents/'
+          var myUserName = "Franco-Henriquez"
+          var myRepo = "franco-henriquez.github.io"
+          var myGitHubApiURL = 'https://api.github.com/repos/'+myUserName+'/'+myRepo+'/contents/'
           var location = window.location.pathname;
           var path = location.substring(0, location.lastIndexOf("/"));
-          console.log("Path: " + path)
-          var domainLessPath = location.substring(0, location.lastIndexOf("/")+1);
           var directoryName = path.substring(path.lastIndexOf("/")+1); /*current working directory*/
-          console.log("Directory name: " + directoryName)
-          console.log("Repo 1" + myRepos)
-          // var myRepos = myRepos + domainLessPath; //remake this to check if its repostory or not
-          checkIfRepo(path); //remake this to check if its repostory or not
-          console.log("Repo 2" + myRepos)
-          const response = await fetch(myRepos);
+          console.log("Path: " + path)
+          console.log("Repo 1: " + myGitHubApiURL)
+          // var myGitHubApiURL = myGitHubApiURL + domainLessPath; //remake this to check if its repostory or not
+          var myGitHubApiURL = checkIfRepo(myGitHubApiURL,path);
+          console.log("Repo 2: " + myGitHubApiURL)
+          const response = await fetch(myGitHubApiURL);
           // console.log("this is the response " + response)
           const data = await response.json();
           // console.log("this is the data " + data)
