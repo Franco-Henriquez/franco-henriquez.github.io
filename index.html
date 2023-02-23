@@ -77,7 +77,7 @@
             //fetch correct listing
             var location = window.location.pathname;
             console.log("Directory location: " + location)
-            var myRepos = 'https://api.github.com/repos/Franco-Henriquez/Web_Fundamentals/contents/'
+            // var myRepos = 'https://api.github.com/repos/Franco-Henriquez/Web_Fundamentals/contents/'
             var directoryName = path.substring(path.lastIndexOf("/")+1); /*current working directory*/
             
             console.log("Directory name: " + directoryName)
@@ -107,7 +107,9 @@
               // console.log("Repo: " + myRepos)
 
           }
-          // var myRepos = 'https://api.github.com/repos/Franco-Henriquez/Web_Fundamentals/contents/'
+          var myUserName = "Franco-Henriquez"
+          var myRepo = "franco-henriquez.github.io"
+          var myRepos = 'https://api.github.com/repos/'+myUserName+'/'+myRepo+'/contents/'
           var location = window.location.pathname;
           var path = location.substring(0, location.lastIndexOf("/"));
           var directoryName = path.substring(path.lastIndexOf("/")+1); /*current working directory*/
