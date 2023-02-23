@@ -111,7 +111,6 @@
               return myGitHubApiURL;
             }
               // console.log("Repo: " + myGitHubApiURL)
-
           }
           var myUserName = "Franco-Henriquez"
           var myRepo = "franco-henriquez.github.io"
